@@ -1,14 +1,8 @@
-#######################################################################
-#   Scaling Through Remote Desktop's on Surface's or 3:2 Ratio Screens
-#   Written by: Jon Cohen
-#   Date: 04-24-2020
-#   Must be Ran as Administrator
-#######################################################################
-
 $registryPath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\SideBySide'
 $Name = 'PreferExternalManifest'
 $Value = '1'
-$manifestexists = Test-Path -LiteralPath $manifestpath
+$manifestpath = "C:\Windows\System32\mstsc.exe.manifest"
+$manifestexists = Test-Path -Path $manifestpath
 $manifest = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3">
 
@@ -53,8 +47,6 @@ $manifest = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </asmv3:application>
 
 </assembly>'
-
-$manifestpath = 'C:\Windows\System32\mstsc.exe.manifest'
 
 if((Get-ItemPropertyValue -Path $registryPath -Name $Name) -eq "1"){
     Write-Host "Regisry Key Exists"
